@@ -14,11 +14,11 @@
         };
     }]);
 
-    function $NodeDirective(isRoot) {
+    function $NodeDirective(isRoot, name, req) {
         var factory = function(compile, parse){
             var directive = {
                 restrict: 'AEC',
-                require: (isRoot ? 'dxTree' : '^dxTree'),
+                require: req,
                 scope: true,
                 compile: function(elm) {
                     var link = {
@@ -26,8 +26,8 @@
                             scope.$dxLevel = isRoot ? 0 : scope.$dxLevel + 1;
                             scope.$dxIsRoot = isRoot;
                             scope.$dxPrior = scope.$dxParent = isRoot
-                                ? parse(attr.dxTree || attr.root)(scope)
-                                : parse(attr.dxNode || attr.node)(scope);
+                                ? parse(attr[name] || attr.root)(scope)
+                                : parse(attr[name] || attr.node)(scope);
 
                             elm.html(ctrl.template());
                             compile(elm.contents())(scope);
@@ -52,9 +52,9 @@
         return factory;
     }
 
-    comp.directive('dxTree', $NodeDirective(true));
-    comp.directive('dxNode', $NodeDirective(false));
+    comp.directive('dxTree', $NodeDirective(true, 'dxTree','dxTree'));
+    comp.directive('dxNode', $NodeDirective(false, 'dxNode', '^dxTree'));
 
-    comp.directive('dxStartWith', $NodeDirective(true));
-    comp.directive('dxConnect', $NodeDirective(false));
+    comp.directive('dxStartWith', $NodeDirective(true, 'dxStartWith', 'dxStartWith'));
+    comp.directive('dxConnect', $NodeDirective(false, 'dxConnect', '^dxStartWith'));
 }());
