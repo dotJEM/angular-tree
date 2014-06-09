@@ -16,6 +16,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# JetBrains IDEA
+.idea
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
