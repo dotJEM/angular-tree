@@ -56,6 +56,19 @@ So in essence we can do:
 
 So dx-node will reuse the block defined by dx-tree and provide the means to point to an actual child node.
 
+Alternative syntax:
+
+
+```html
+<ul dx-start-with="rootNode">
+  <li ng-repeat="node in $dxPrior.nodes">
+    {{ node.name }}
+    <ul dx-connect="node"/>
+  </li>
+</ul>
+```
+
 IMPORTANT!:
 
 The template is the inner html of the dx-tree directive, this is important to know so that you get it right when defining the dx-node. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
+
