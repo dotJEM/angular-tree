@@ -56,8 +56,7 @@ So in essence we can do:
 
 So dx-node will reuse the block defined by dx-tree and provide the means to point to an actual child node.
 
-Alternative syntax:
-
+An alternative syntax is given that might make it more obvious what we are doing:
 
 ```html
 <ul dx-start-with="rootNode">
