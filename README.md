@@ -43,37 +43,19 @@ Iverting the idea
 
 So... Rather than focusing on the "repeater" part of it which becomes really complex really fast if we wish to keep up with the ng-repeat directive, dotJEM Angular Tree focuses only on the recursive delegation and instead leaves ng-repeat to do it's job on the nodes.
 
-So in essence the goal is to be able to do something like: 
+So in essence we can do:
 
 ```html
 <ul dx-tree="rootNode">
   <li ng-repeat="node in $dxParent.nodes">
     {{ node.name }}
-    <dx-node node="node"/>
+    <ul dx-node="node"/>
   </li>
 </ul>
 ```
 
 So dx-node will reuse the block defined by dx-tree and provide the means to point to an actual child node.
 
-Not there yet
--------------
+IMPORTANT!:
 
-We are not quite there yet, and to go the entire way to the above might be more trouble that it is worth. Currently this is what we can do:
-
-```html
-<dx-tree root="rootNode">
-  <dx-tree-template>
-    <ul>
-      <li ng-repeat="node in $dxParent.nodes">
-        {{node.name}}
-        <dx-node node="node"></dx-node>
-      </li>
-    </ul>    
-  </dx-tree-template>
-</dx-tree>
-```
-
-That is a bit more html than Angular Tree Repeat, but we have all the abilities of ng-repeat, which means we can repeat over anything that ng-repeat allows now and in the future.
-
-But the above syntax is what we will work on aproaching.
+The template is the inner html of the dx-tree directive, this is important to know so that you get it right when defining the dx-node. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
