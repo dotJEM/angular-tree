@@ -23,6 +23,7 @@
                 compile: function(elm) {
                     var link = {
                         post: function (scope, elm, attr, ctrl) {
+                            scope.$dxLevel = isRoot ? 0 : scope.$dxLevel + 1;
                             scope.$dxIsRoot = isRoot;
                             scope.$dxParent = isRoot
                                 ? parse(attr.dxTree || attr.root)(scope)
