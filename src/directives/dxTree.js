@@ -20,37 +20,37 @@
                 restrict: 'AEC',
                 require: (isRoot ? 'dxTree' : '^dxTree'),
                 scope: true,
-                link: function link(scope, elm, attr, ctrl) {
-                    scope.$dxIsRoot = isRoot;
-                    scope.$dxParent = isRoot ? parse(attr.dxTree || attr.root)(scope) : parse(attr.dxNode || attr.node)(scope);
+                compile: function(elm) {
+                    var link = {
+                        post: function (scope, elm, attr, ctrl) {
+                            scope.$dxIsRoot = isRoot;
+                            scope.$dxParent = isRoot
+                                ? parse(attr.dxTree || attr.root)(scope)
+                                : parse(attr.dxNode || attr.node)(scope);
 
-                    elm.html(ctrl.template());
-                    compile(elm.contents())(scope);
+                            elm.html(ctrl.template());
+                            compile(elm.contents())(scope);
+                        }
+                    };
+                    if(isRoot){
+                        var template = elm.html();
+                        elm.html('');
+                        link.pre = function(scope, elm, attr, ctrl) {
+                            ctrl.template(template);
+                        };
+                    }
+                    return link;
                 }
             };
             if (isRoot) {
                 directive.controller = 'dxTreeCtrl';
             }
             return directive;
-        }
+        };
         factory.$inject=['$compile', '$parse'];
         return factory;
     }
 
     comp.directive('dxTree', $NodeDirective(true));
     comp.directive('dxNode', $NodeDirective(false));
-
-    comp.directive('dxTreeTemplate', [function () {
-        return {
-            restrict: 'AEC',
-            require: '^dxTree',
-            compile: function (element) {
-                var template = element.html();
-                element.remove();
-                return function link(scope, elm, attr, ctrl) {
-                    ctrl.template(template);
-                }
-            }
-        }
-    }]);
 }());
