@@ -25,7 +25,7 @@
                         post: function (scope, elm, attr, ctrl) {
                             scope.$dxLevel = isRoot ? 0 : scope.$dxLevel + 1;
                             scope.$dxIsRoot = isRoot;
-                            scope.$dxParent = isRoot
+                            scope.$dxPrior = scope.$dxParent = isRoot
                                 ? parse(attr.dxTree || attr.root)(scope)
                                 : parse(attr.dxNode || attr.node)(scope);
 
@@ -54,4 +54,7 @@
 
     comp.directive('dxTree', $NodeDirective(true));
     comp.directive('dxNode', $NodeDirective(false));
+
+    comp.directive('dxStartWith', $NodeDirective(true));
+    comp.directive('dxConnect', $NodeDirective(false));
 }());
