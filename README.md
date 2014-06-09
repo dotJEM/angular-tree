@@ -71,3 +71,23 @@ IMPORTANT!:
 
 The template is the inner html of the dx-tree directive, this is important to know so that you get it right when defining the dx-node. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
 
+## Install
+
+Install with `bower`:
+
+```shell
+bower install dotjem-angular-tree
+```
+
+Add a `<script>` to your `index.html`:
+
+```html
+<script src="/bower_components/dotjem-angular-tree/dotjem-angular-tree.js"></script>
+```
+
+And add `dotjem.angular.tree` as a dependency for your app:
+
+```javascript
+angular.module('myApp', ['dotjem.angular.tree']);
+```
+
