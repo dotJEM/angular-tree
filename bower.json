@@ -1,0 +1,8 @@
+{
+  "name": "dotjem-angular-tree",
+  "version": "0.1.0",
+  "main": "./dotjem-angular-tree.js",
+  "dependencies": {
+    "angular": ">= 1.2.16"
+  }
+}

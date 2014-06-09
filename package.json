@@ -1,0 +1,36 @@
+{
+  "name": "dotjem-angular-tree",
+  "title": "dotJEM Angular Tree",
+  "description": "Directives for creating recursion.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dotJEM/angular-tree",
+  "author": {
+    "name": "dotjem",
+    "url": "https://github.com/dotJEM"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotJEM/angular-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dotJEM/angular-tree/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dotJEM/angular-tree/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.2",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-ngdocs": "~0.1.9"
+  },
+  "keywords": []
+}
