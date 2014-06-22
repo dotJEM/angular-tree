@@ -67,6 +67,12 @@ An alternative syntax is given that might make it more obvious what we are doing
 </ul>
 ```
 
+`dx-start-with` and `dx-connect` provides the variables: 
+
+ - `$dxPrior`: the object passed to `dx-start-with` or `dx-connect`.
+ - `$dxRoot`: true if this is the root level, otherwise false.
+ - `$dxLevel`: the level of recursion we are at starting at 0.
+ 
 IMPORTANT!:
 
 The template is the inner html of the dx-tree directive, this is important to know so that you get it right when defining the dx-node. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
