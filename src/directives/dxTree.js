@@ -20,21 +20,25 @@
                 restrict: 'AEC',
                 require: req,
                 scope: true,
-                compile: function(elm) {
-                    var link = {
+                compile: function(elm, attr) {
+                    var watchExp = attr[name] || (isRoot ? attr.root : attr.node),
+                        template,
+                        link = {
                         post: function (scope, elm, attr, ctrl) {
                             scope.$dxLevel = isRoot ? 0 : scope.$dxLevel + 1;
                             scope.$dxIsRoot = isRoot;
-                            scope.$dxPrior = scope.$dxParent = isRoot
-                                ? parse(attr[name] || attr.root)(scope)
-                                : parse(attr[name] || attr.node)(scope);
 
                             elm.html(ctrl.template());
                             compile(elm.contents())(scope);
+                            
+                            function updatePrior(value){
+                              scope.$dxPrior = value;
+                            }
+                            scope.$watch(watchExp, updatePrior);
                         }
                     };
                     if(isRoot){
-                        var template = elm.html();
+                        template = elm.html();
                         elm.html('');
                         link.pre = function(scope, elm, attr, ctrl) {
                             ctrl.template(template);
