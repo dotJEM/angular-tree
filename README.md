@@ -69,8 +69,8 @@ An alternative syntax is given that might make it more obvious what we are doing
 
 `dx-start-with` and `dx-connect` provides the variables: 
 
- - `$dxPrior`: the object passed to `dx-start-with` or `dx-connect`.
- - `$dxRoot`: true if this is the root level, otherwise false.
+ - `$dxPrior`: (`$dxParent`) the object passed to `dx-start-with` or `dx-connect`.
+ - `$dxIsRoot`: true if this is the root level, otherwise false.
  - `$dxLevel`: the level of recursion we are at starting at 0.
  
 IMPORTANT!:
