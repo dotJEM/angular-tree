@@ -3,13 +3,12 @@
 
     comp.controller("dxTreeCtrl", [function () {
         var template;
-        return {
-            template: function (value) {
-                if (angular.isDefined(value)) {
-                    template = value;
-                } else {
-                    return template;
-                }
+        
+        this.template = function (value) {
+            if (angular.isDefined(value)) {
+                template = value;
+            } else {
+                return template;
             }
         };
     }]);
