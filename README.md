@@ -82,6 +82,7 @@ An alternative syntax is given that might make it more obvious what we are doing
     <ul dx-connect="node"/>
   </li>
 </ul>
+```
 
 IMPORTANT!:
 
