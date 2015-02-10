@@ -46,19 +46,6 @@ So... Rather than focusing on the "repeater" part of it which becomes really com
 So in essence we can do:
 
 ```html
-<ul dx-tree="rootNode">
-  <li ng-repeat="node in $dxParent.nodes">
-    {{ node.name }}
-    <ul dx-node="node"/>
-  </li>
-</ul>
-```
-
-So dx-node will reuse the block defined by dx-tree and provide the means to point to an actual child node.
-
-An alternative syntax is given that might make it more obvious what we are doing:
-
-```html
 <ul dx-start-with="rootNode">
   <li ng-repeat="node in $dxPrior.nodes">
     {{ node.name }}
@@ -67,9 +54,11 @@ An alternative syntax is given that might make it more obvious what we are doing
 </ul>
 ```
 
+So dx-connect will reuse the block defined by dx-start-with and provide the means to point to an actual child node.
+
 `dx-start-with` and `dx-connect` provides the variables: 
 
- - `$dxPrior`: (`$dxParent`) the object passed to `dx-start-with` or `dx-connect`.
+ - `$dxPrior`: the object passed to `dx-start-with` or `dx-connect`.
  - `$dxIsRoot`: true if this is the root level, otherwise false.
  - `$dxLevel`: the level of recursion we are at starting at 0.
  
