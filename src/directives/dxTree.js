@@ -1,70 +1,83 @@
-(function() {
+(function () {
     var comp = angular.module('dotjem.angular.tree', []),
-        SW_REGEX  = /^(\S+)(\s+as\s+(\w+))?$/;;
+        SW_REGEX = /^(\S+)(\s+as\s+(\w+))?$/;
 
-    comp.controller("dxTreeCtrl", [function () {
-        var template;
+    comp.controller("dxStartWithCtrl", [function () {}]);
 
-        this.template = function (value) {
-            if (angular.isDefined(value)) {
-                template = value;
-            } else {
-                return template;
-            }
-        };
-    }]);
+    function $RootNodeDirective() {
+        return {
+            restrict: 'AEC',
+            require: 'dxStartWith',
+            controller: 'dxStartWithCtrl',
 
-    function $NodeDirective(isRoot, name, req) {
-        var factory = function(compile){
-            var directive = {
-                restrict: 'AEC',
-                require: req,
-                scope: true,
-                compile: function(elm, attr) {
-                    var exp = attr[name] || (isRoot ? attr.root : attr.node),
-                        match = exp.match(SW_REGEX),
-                        watch = match[1],
-                        priorAlias = match[3] || '',
-                        template,
-                        link = {
-                            post: function (scope, elm, attr, ctrl) {
-                                scope.$dxLevel = isRoot ? 0 : scope.$dxLevel + 1;
-                                scope.$dxIsRoot = isRoot;
+            scope: true,
+            terminal: true,
+            transclude: true,
+            multiElement: true,
 
-                                elm.html(ctrl.template());
-                                compile(elm.contents())(scope);
+            $$tlb: true,
 
-                                function updatePrior(value){
-                                    scope.$dxPrior = value;
-                                    if(priorAlias !== ''){
-                                        scope[priorAlias] = value;
-                                    }
-                                }
-                                scope.$watch(watch, updatePrior);
+            compile: function (elm, attr) {
+                var exp = attr['dxStartWith'] || attr.root,
+                    match = exp.match(SW_REGEX),
+                    watch = match[1],
+                    priorAlias = match[3] || '';
+
+                return function $RootNodeDirectiveLink(scope, elm, attr, ctrl, $transclude) {
+                    ctrl.transclude = $transclude;
+                    ctrl.transclude(scope, function (clone, scope) {
+                        elm.append(clone);
+                        scope.$dxLevel = 0;
+                        scope.$dxIsRoot = true;
+                        function updatePrior(value) {
+                            scope.$dxPrior = value;
+                            if (priorAlias !== '') {
+                                scope[priorAlias] = value;
                             }
-                        };
-                    if(isRoot){
-                        template = elm.html();
-                        elm.html('');
-                        link.pre = function(scope, elm, attr, ctrl) {
-                            ctrl.template(template);
-                        };
-                    }
-                    return link;
-                }
-            };
-            if (isRoot) {
-                directive.controller = 'dxTreeCtrl';
+                        }
+                        scope.$watch(watch, updatePrior);
+                    });
+                };
             }
-            return directive;
         };
-        factory.$inject=['$compile'];
-        return factory;
+        return directive;
     }
 
-    comp.directive('dxTree', $NodeDirective(true, 'dxTree','dxTree'));
-    comp.directive('dxNode', $NodeDirective(false, 'dxNode', '^dxTree'));
+    function $NodeDirective() {
+        return {
+            restrict: 'AEC',
+            require: '^dxStartWith',
 
-    comp.directive('dxStartWith', $NodeDirective(true, 'dxStartWith', 'dxStartWith'));
-    comp.directive('dxConnect', $NodeDirective(false, 'dxConnect', '^dxStartWith'));
+            scope: true,
+            terminal: true,
+            multiElement: true,
+
+            compile: function (elm, attr) {
+                var exp = attr['dxConnect'] || attr.connect,
+                    match = exp.match(SW_REGEX),
+                    watch = match[1],
+                    priorAlias = match[3] || '';
+
+                return function $NodeDirectiveLink(scope, elm, attr, ctrl) {
+                    ctrl.transclude(scope, function (clone, scope) {
+                        elm.append(clone);
+
+                        scope.$dxLevel = 0;
+                        scope.$dxIsRoot = true;
+                        function updatePrior(value) {
+                            scope.$dxPrior = value;
+                            if (priorAlias !== '') {
+                                scope[priorAlias] = value;
+                            }
+                        }
+
+                        scope.$watch(watch, updatePrior);
+                    });
+                };
+            }
+        };
+    }
+
+    comp.directive('dxStartWith', $RootNodeDirective);
+    comp.directive('dxConnect', $NodeDirective);
 }());
