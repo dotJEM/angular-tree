@@ -4,7 +4,7 @@ dotJEM Angular Tree
 Small set of directives that helps to render templates based on tree's
 In reality calling it a tree-view is a bit missguided as rendering data like this is so incredible easy in angular.
 
-In essense, all we really need to do is something like:
+In essence, all we really need to do is something like:
 
 ```html
     <script type="text/ng-template" id="node_template.html">
@@ -14,7 +14,7 @@ In essense, all we really need to do is something like:
     <div ng-include="'node_template.html'"></div>
 ```
 
-So in essense, we don't really need any custom directives or that sort...
+So in essence, we don't really need any custom directives or that sort...
 
 But this doesn't entirely feel right... Why should we have to pass things through the template cache to achieve this, why can't we just provide the template directly in our html in a more natural way?...
 
@@ -38,7 +38,7 @@ Angular Tree Repeat is another directive that solves this problem in a nice way.
 
 But overall I felt the implementation could be done even more simple while also gaining all the functions of ng-repeat by reusing it as is.
 
-Iverting the idea
+Inverting the idea
 -----------------
 
 So... Rather than focusing on the "repeater" part of it which becomes really complex really fast if we wish to keep up with the ng-repeat directive, dotJEM Angular Tree focuses only on the recursive delegation and instead leaves ng-repeat to do it's job on the nodes.
@@ -75,7 +75,7 @@ So dx-connect will reuse the block defined by dx-start-with and provide the mean
 
 IMPORTANT!:
 
-The template is the inner html of the dx-tree directive, this is important to know so that you get it right when defining the dx-node. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
+The template is the inner html of the dx-start-with directive, this is important to know so that you get it right when defining the dx-connect. as such if you put the dx-tree directly on the ul, the dx-node must also be an ul (or ol).
 
 ## Install
 
