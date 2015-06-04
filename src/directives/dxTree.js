@@ -62,8 +62,8 @@
                     ctrl.transclude(scope, function (clone, scope) {
                         elm.append(clone);
 
-                        scope.$dxLevel = 0;
-                        scope.$dxIsRoot = true;
+                        scope.$dxLevel = scope.$dxLevel + 1;
+                        scope.$dxIsRoot = false;
                         function updatePrior(value) {
                             scope.$dxPrior = value;
                             if (priorAlias !== '') {
