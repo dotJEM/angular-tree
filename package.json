@@ -2,7 +2,7 @@
   "name": "dotjem-angular-tree",
   "title": "dotJEM Angular Tree",
   "description": "Directives for creating recursion.",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/dotJEM/angular-tree",
   "author": {
     "name": "dotjem",
