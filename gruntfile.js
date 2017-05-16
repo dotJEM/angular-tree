@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         banner: grunt.file.read('banner'),
+		
         clean: {
             src: ['build', 'temp']
         },
@@ -47,7 +48,15 @@ module.exports = function (grunt) {
                 html5Mode: false
             },
             all: ['src/**/*.js']
-        }
+        },
+		
+		copy: {
+			disribution: {
+				files: [
+					{ src: ['build/*','LICENSE', 'package.json', 'README.md'], dest: 'distribution/', expand: true, flatten: true }
+				]
+			}
+		}
     });
 
     // These plugins provide necessary tasks.
@@ -62,4 +71,8 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['clean', 'build']);
     grunt.registerTask('develop', ['clean', 'build', 'connect', 'watch']);
     grunt.registerTask('build', ['concat', 'uglify']);
+	
+    grunt.registerTask('dist', ['build', 'copy']);
+	
+	
 };
